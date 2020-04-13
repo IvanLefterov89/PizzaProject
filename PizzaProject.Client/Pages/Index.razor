@@ -10,16 +10,21 @@
             @foreach (var special in specials)
             {
                 <li @onclick="@(() => ShowConfigurePizzaDialog(special))" style="background-image: url('@special.ImageUrl')">
-                <div class="pizza-info">
-                    <span class="title">@special.Name</span>
-                    @special.Description
-                    <span class="price">@special.GetFormattedBasePrice()</span>
-                </div>
+                    <div class="pizza-info">
+                        <span class="title">@special.Name</span>
+                        @special.Description
+                        <span class="price">@special.GetFormattedBasePrice()</span>
+                    </div>
                 </li>
             }
         }
     </ul>
 </div>
+
+    @if (showingConfigureDialog)
+    {
+        <ConfigurePizzaDialog Pizza="configuringPizza" />
+    }
 
 @code {
     //Add list of pizza specials to the client side
