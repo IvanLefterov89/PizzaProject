@@ -99,15 +99,15 @@ namespace PizzaProject.Server
             // order delivery progress and send us notifications when it
             // changes. Since we don't have any such process here, fake it.
             await Task.Delay(OrderWithStatus.PreparationDuration);
-            await SendNotificationAsync(order, subscription, "Your order has been dispatched!");
+            await SendNotificationAsync(order, subscription, "Поръчката Ви е на път!");
 
             await Task.Delay(OrderWithStatus.DeliveryDuration);
-            await SendNotificationAsync(order, subscription, "Your order is now delivered. Enjoy!");
+            await SendNotificationAsync(order, subscription, "Поръчката Ви пристигна.");
         }
 
         private static Task SendNotificationAsync(Order order, NotificationSubscription subscription, string message)
         {
-            // This will be implemented later
+
             return Task.CompletedTask;
         }
     }

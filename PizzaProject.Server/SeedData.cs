@@ -68,11 +68,6 @@
                 },
                 new Topping()
                 {
-                    Name = "Served on a silver platter",
-                    Price = 250.99m,
-                },
-                new Topping()
-                {
                     Name = "Омар",
                     Price = 44.50m,
                 },
