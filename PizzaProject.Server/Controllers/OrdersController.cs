@@ -55,9 +55,10 @@ namespace PizzaProject.Server
         [HttpPost]
         public async Task<ActionResult<int>> PlaceOrder(Order order)
         {
+            // slows down the server responce for 5 sec to prevent double submission of the form
+            await Task.Delay(5000);
             order.CreatedTime = DateTime.Now;
             order.DeliveryLocation = new LatLong(51.5001, -0.1239);
-            // order.UserId = GetUserId();
 
             // Enforce existence of Pizza.SpecialId and Topping.ToppingId
             // in the database - prevent the submitter from making up
