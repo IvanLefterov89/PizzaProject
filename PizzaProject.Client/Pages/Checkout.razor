@@ -10,10 +10,12 @@
             </div>
         </div>
 
-        <button class="checkout-button btn btn-warning" @onclick="PlaceOrder">
-            Place order
-        </button>
-    <a href="checkout" class="btn btn-warning" disabled="@(OrderState.Order.Pizzas.Count == 0)"> Order ></a>
+        <button class="checkout-button btn btn-warning" @onclick="PlaceOrder">Place order</button>
+        <a href="checkout" class="btn btn-warning" disabled="@(OrderState.Order.Pizzas.Count == 0)"> Order ></a>
+        <div class="checkout-delivery-address">
+            <h4>Deliver to...</h4>
+            <AddressEditor Address="@OrderState.Order.DeliveryAddress" />
+        </div>
     </div>
 @code {
     async Task PlaceOrder()
