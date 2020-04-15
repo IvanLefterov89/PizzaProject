@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 
 namespace PizzaProject.Client
@@ -10,7 +11,7 @@ namespace PizzaProject.Client
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("app");
-
+            builder.Services.AddScoped<OrderState>();
             await builder.Build().RunAsync();
         }
     }
