@@ -2,6 +2,7 @@
 @inject HttpClient HttpClient
 @inject OrderState OrderState
 @inject NavigationManager NavigationManager
+@inject IJSRuntime JS
 
 <h1>Pizza Project Pizzas</h1>
 
@@ -24,14 +25,14 @@
     <div class="sidebar">
         @if (order.Pizzas.Any())
         {
-            <div class="order-contents">
-                <h2>Your order</h2>
+        <div class="order-contents">
+            <h2>Твоята поръчка</h2>
 
-                @foreach (var configuredPizza in order.Pizzas)
-                {
-                    <ConfiguredPizzaItem Pizza="configuredPizza" OnRemoved="@(() => OrderState.RemoveConfiguredPizza(configuredPizza))" />
-                }
-            </div>
+            @foreach (var configuredPizza in OrderState.Order.Pizzas)
+            {
+                <ConfiguredPizzaItem Pizza="configuredPizza" OnRemoved="@(() => RemovePizza(configuredPizza))" />
+            }
+        </div>
         }
         else
         {
@@ -72,5 +73,13 @@
         var newOrderId = await HttpClient.PostJsonAsync<int>("orders", OrderState.Order);
         OrderState.ResetOrder();
         NavigationManager.NavigateTo($"myorders/{newOrderId}");
+    }
+   
+    async Task RemovePizza(Pizza configuredPizza)
+    {
+        if (await JS.Confirm($"Remove {configuredPizza.Special.Name} pizza from the order?"))
+        {
+            OrderState.RemoveConfiguredPizza(configuredPizza);
+        }
     }
 }
