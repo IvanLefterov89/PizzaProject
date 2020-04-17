@@ -1,0 +1,37 @@
+﻿@page "/myorders"
+@inject HttpClient HttpClient
+@attribute [Authorize]
+
+<div class="main">
+    <TemplatedList Loader="LoadOrders" ListGroupClass="orders-list">
+        <Loading>Зареждане...</Loading>
+        <Empty>
+            <h2>Няма поръчки</h2>
+            <a class="btn btn-success" href="">Order some pizza</a>
+        </Empty>
+        <Item Context="item">
+            <div class="col">
+                <h5>@item.Order.CreatedTime.ToLongDateString()</h5>
+                Продукти:
+                <strong>@item.Order.Pizzas.Count()</strong>;
+                Общо:
+                <strong> @item.Order.GetFormattedTotalPrice()лв.</strong>
+            </div>
+            <div class="col">
+                Статус: <strong>@item.StatusText</strong>
+            </div>
+            <div class="col flex-grow-0">
+                <a href="myorders/@item.Order.OrderId" class="btn btn-success">
+                    Проследи &gt;
+                </a>
+            </div>
+        </Item>
+    </TemplatedList>
+</div>
+
+@code {
+    async Task<List<OrderWithStatus>> LoadOrders()
+    {
+        return await HttpClient.GetJsonAsync<List<OrderWithStatus>>("orders");
+    }
+}
