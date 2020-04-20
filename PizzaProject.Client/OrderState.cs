@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace PizzaProject.Client
 {
@@ -41,15 +38,16 @@ namespace PizzaProject.Client
             ShowingConfigureDialog = false;
         }
 
+        public void RemoveConfiguredPizza(Pizza pizza)
+        {
+            Order.Pizzas.Remove(pizza);
+        }
+
         public void ResetOrder()
         {
             Order = new Order();
         }
 
-        public void RemoveConfiguredPizza(Pizza pizza)
-        {
-            Order.Pizzas.Remove(pizza);
-        }
         public void ReplaceOrder(Order order)
         {
             Order = order;

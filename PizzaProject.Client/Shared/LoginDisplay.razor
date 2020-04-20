@@ -1,4 +1,4 @@
-﻿<div class="user-info">
+<div class="user-info">
     <AuthorizeView>
         <Authorizing>
             <text>...</text>
@@ -12,9 +12,7 @@
         </Authorized>
         <NotAuthorized>
             <a class="sign-in" href="user/signin">Sign in</a>
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
         </NotAuthorized>
     </AuthorizeView>
 </div>
-@code {
-
-}

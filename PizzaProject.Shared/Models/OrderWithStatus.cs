@@ -7,7 +7,7 @@ namespace PizzaProject
     public class OrderWithStatus
     {
         public readonly static TimeSpan PreparationDuration = TimeSpan.FromSeconds(10);
-        public readonly static TimeSpan DeliveryDuration = TimeSpan.FromMinutes(1); // Unrealistic, but more interesting to watch
+        public readonly static TimeSpan DeliveryDuration = TimeSpan.FromMinutes(1); // Simulated time for delivery
 
         public Order Order { get; set; }
 
@@ -25,31 +25,31 @@ namespace PizzaProject
 
             if (DateTime.Now < dispatchTime)
             {
-                statusText = "Preparing";
+                statusText = "Приготвя се...";
                 mapMarkers = new List<Marker>
                 {
-                    ToMapMarker("You", order.DeliveryLocation, showPopup: true)
+                    ToMapMarker("Вие", order.DeliveryLocation, showPopup: true)
                 };
             }
             else if (DateTime.Now < dispatchTime + DeliveryDuration)
             {
-                statusText = "Out for delivery";
+                statusText = "На път за доставка";
 
                 var startPosition = ComputeStartPosition(order);
                 var proportionOfDeliveryCompleted = Math.Min(1, (DateTime.Now - dispatchTime).TotalMilliseconds / DeliveryDuration.TotalMilliseconds);
                 var driverPosition = LatLong.Interpolate(startPosition, order.DeliveryLocation, proportionOfDeliveryCompleted);
                 mapMarkers = new List<Marker>
                 {
-                    ToMapMarker("You", order.DeliveryLocation),
-                    ToMapMarker("Driver", driverPosition, showPopup: true),
+                    ToMapMarker("Вие", order.DeliveryLocation),
+                    ToMapMarker("Поръчката", driverPosition, showPopup: true),
                 };
             }
             else
             {
-                statusText = "Delivered";
+                statusText = "Доставена";
                 mapMarkers = new List<Marker>
                 {
-                    ToMapMarker("Delivery location", order.DeliveryLocation, showPopup: true),
+                    ToMapMarker("Адрес на доставката", order.DeliveryLocation, showPopup: true),
                 };
             }
 

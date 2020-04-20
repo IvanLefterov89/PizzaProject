@@ -30,6 +30,7 @@ namespace PizzaProject.Server
             }
 
             await HttpContext.ChallengeAsync(
+                
                 TwitterDefaults.AuthenticationScheme,
                 new AuthenticationProperties { RedirectUri = redirectUri });
         }
